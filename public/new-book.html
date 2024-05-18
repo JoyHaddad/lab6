@@ -4,24 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create a New Book</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="output.css" />
   </head>
   <body>
     <div>
       <hr />
-      <h1>Create New Book</h1>
+      <h1 class="text-3xl font-bold">Create New Book</h1>
       <hr />
       <form action="http://localhost:3000/book" method="POST">
         <div>
           <label for="ISBN">ISBN</label>
-          <input class="form-control" name="isbn" />
+          <input name="isbn" />
         </div>
         <div>
           <label for="Title">Title</label>
           <input name="title" />
         </div>
         <!--Other fields-->
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   </body>

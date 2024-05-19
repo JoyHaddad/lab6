@@ -29,13 +29,18 @@ app.get("/books", (req, res) => {
 });
 
 app.post("/book/:isbn", (req, res) => {
-  const index = books.findIndex((book) => book.isbn === req.params.isbn);
-  if (index !== -1) {
-    books[index] = req.body;
-    res.send("Book updated");
-  } else {
-    res.status(404).send("Book not found");
+  const isbn = req.params.isbn;
+  const newBook = req.body;
+
+  for (let i = 0; i < books.length; i++) {
+    let book = books[i];
+
+    if (book.isbn === isbn) {
+      books[i] = newBook;
+    }
   }
+
+  res.send("Book is edited");
 });
 
 app.delete("/book/:isbn", (req, res) => {

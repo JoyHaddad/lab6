@@ -12,14 +12,11 @@ async function loadBooks() {
 
     for (let book of books) {
       const x = `
-        <div class="flex">
-          <div>
-            <div class="border border-gray-200 p-4 rounded-md">
+            <div class="border border-gray-200 p-4 rounded-md m-4 w-64">
               <h5 class="text-xl font-semibold">${book.title}</h5>
               <h6 class="text-lg mb-2 text-gray-400">${book.isbn}</h6>
               <div>Author: ${book.author}</div>
               <div>Publisher: ${book.publisher}</div>
-              <div>Publish Date: ${book.publish_date}</div>
               <div>Number Of Pages: ${book.numOfPages}</div>
               <hr class="my-4">
               <button type="button" class="p-2 bg-red-500 text-white rounded-md" onclick="deleteBook('${book.isbn}');">Delete</button>
@@ -28,8 +25,6 @@ async function loadBooks() {
                 Edit
               </button>
             </div>
-          </div>
-        </div>
       `;
       document.getElementById("books").innerHTML += x;
     }

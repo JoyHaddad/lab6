@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.post("/book", (req, res) => {
   const book = req.body;
   console.log(book);
-  books.push(book);
+  [].push(book);
   res.status(201).send("Book is added to database");
 });
 
@@ -25,29 +25,56 @@ app.get("/", (req, res) => {
 });
 
 app.get("/books", (req, res) => {
-  res.status(200).json(books);
+  res.status(200).json([]);
 });
 
 app.post("/book/:isbn", (req, res) => {
-  const index = books.findIndex((book) => book.isbn === req.params.isbn);
-  if (index !== -1) {
-    books[index] = req.body;
-    res.send("Book updated");
-  } else {
+  const isbn = req.params.isbn;
+  const newBook = req.body;
+  let found = false;
+
+  for (let i = 0; i < [].length; i++) {
+    if ([][i].isbn === isbn) {
+      [][i] = newBook;
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
     res.status(404).send("Book not found");
+  } else {
+    res.send("Book is edited");
   }
 });
 
 app.delete("/book/:isbn", (req, res) => {
-  const index = books.findIndex((book) => book.isbn === req.params.isbn);
+  const index = [].findIndex((book) => book.isbn === req.params.isbn);
   if (index !== -1) {
-    books.splice(index, 1);
+    [].splice(index, 1);
+    [].pop(book);
     res.send("Book deleted");
   } else {
     res.status(404).send("Book not found");
   }
 });
 
+app.post("/book/:isbn", (req, res) => {
+  const isbn = req.params.isbn;
+  const newBook = req.body;
+  
+  for (let i = 0; i < books.length; i++) {
+    let book = books[i];
+    if (book.isbn === isbn) {
+      books[i] = newBook;
+      res.send('Book is edited');
+      return;
+    }
+  }
+  res.status(404).send('Book not found');
+});
+
+
 app.listen(port, () => {
-  console.log("Hello world app listening on port");
+  console.log(`App listening on port ${port}`);
 });

@@ -31,16 +31,21 @@ app.get("/books", (req, res) => {
 app.post("/book/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   const newBook = req.body;
+  let found = false;
 
   for (let i = 0; i < books.length; i++) {
-    let book = books[i];
-
-    if (book.isbn === isbn) {
+    if (books[i].isbn === isbn) {
       books[i] = newBook;
+      found = true;
+      break;
     }
   }
 
-  res.send("Book is edited");
+  if (!found) {
+    res.status(404).send("Book not found");
+  } else {
+    res.send("Book is edited");
+  }
 });
 
 app.delete("/book/:isbn", (req, res) => {

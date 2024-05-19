@@ -16,6 +16,7 @@ async function loadBooks() {
                         <h6 class="text-lg mb-2 text-gray-400">${book.isbn}</h6>
                         <div>Author: ${book.author}</div>
                         <div>Publisher: ${book.publisher}</div>
+                        <div>Publisher: ${book.publish_date}</div>
                         <div>Number Of Pages: ${book.numOfPages}</div>
                         <hr class="my-4">
                         <button type="button" class="p-2 bg-red-500 text-white rounded-md">Delete</button>

@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const fs = require("fs").promises; // Change here to use fs.promises
 
 const app = express();
 const port = 3000;
@@ -9,15 +10,24 @@ let books = [];
 
 app.use(cors());
 app.use(express.static("public"));
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+async function loadBooks() {
+  try {
+    const data = await fs.readFile("./public/book.json", "utf8");
+    books = JSON.parse(data).books;
+    console.log("Books loaded successfully:", books);
+  } catch (error) {
+    console.error("Failed to read or parse books.json:", error);
+  }
+}
 
 app.post("/book", (req, res) => {
   const book = req.body;
   console.log(book);
   books.push(book);
-  res.status(201).send("Book is added to database");
+  res.status(201).send("Book is added to the database");
 });
 
 app.get("/", (req, res) => {
@@ -52,13 +62,14 @@ app.delete("/book/:isbn", (req, res) => {
   const index = books.findIndex((book) => book.isbn === req.params.isbn);
   if (index !== -1) {
     books.splice(index, 1);
-    books.pop(book);
     res.send("Book deleted");
   } else {
     res.status(404).send("Book not found");
   }
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
+loadBooks().then(() => {
+  app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
+  });
 });

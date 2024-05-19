@@ -7,21 +7,48 @@
     <link rel="stylesheet" href="output.css" />
   </head>
   <body>
-    <div>
+    <div class="flex flex-col mx-48 my-10">
       <hr />
-      <h1 class="text-3xl font-bold">Create New Book</h1>
+      <h1 class="text-3xl font-bold my-2">Create New Book</h1>
       <hr />
       <form action="http://localhost:3000/book" method="POST">
-        <div>
+        <div class="flex flex-col my-2">
           <label for="ISBN">ISBN</label>
-          <input name="isbn" />
+          <input class="border border-gray-200 rounded-md" name="isbn" />
         </div>
-        <div>
+        <div class="flex flex-col my-2">
           <label for="Title">Title</label>
-          <input name="title" />
+          <input name="title" class="border border-gray-200 rounded-md" />
+        </div>
+        <div class="flex flex-col my-2">
+          <label for="Author">Author</label>
+          <input name="author" class="border border-gray-200 rounded-md" />
+        </div>
+        <div class="flex flex-col my-2">
+          <label for="Published Date">Published Date</label>
+          <input
+            name="published-date"
+            class="border border-gray-200 rounded-md"
+          />
+        </div>
+        <div class="flex flex-col my-2">
+          <label for="Publisher">Publisher</label>
+          <input name="publisher" class="border border-gray-200 rounded-md" />
+        </div>
+        <div class="flex flex-col my-2">
+          <label for="Number of Pages">Number of Pages</label>
+          <input
+            name="number-of-pages"
+            class="border border-gray-200 rounded-md"
+          />
         </div>
         <!--Other fields-->
-        <button type="submit">Submit</button>
+        <button
+          class="p-2 bg-blue-500 rounded-md text-white my-2"
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
     </div>
   </body>

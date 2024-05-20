@@ -23,6 +23,7 @@ async function loadBooks() {
   }
 }
 
+//add book
 app.post("/book", (req, res) => {
   const book = req.body;
   console.log(book);
@@ -34,27 +35,44 @@ app.get("/", (req, res) => {
   res.sendFile("new-book.html", { root: __dirname + "/public" });
 });
 
+app.get("/edit", (req, res) => {
+  res.sendFile("book-list.html", { root: __dirname + "/public" });
+});
+
+//get list of books
 app.get("/books", (req, res) => {
   res.status(200).json(books);
 });
 
+app.get("/book/:isbn", (req, res) => {
+  const isbn = req.params.isbn;
+  const book = books.find((b) => b.isbn === isbn);
+  if (book) {
+    res.json(book);
+  } else {
+    res.status(404).send("Book not found");
+  }
+});
+
+//edit book
 app.post("/book/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   const newBook = req.body;
-  let found = false;
 
+  let found = false;
   for (let i = 0; i < books.length; i++) {
-    if (books[i].isbn === isbn) {
+    let book = books[i];
+    if (book.isbn === isbn) {
       books[i] = newBook;
       found = true;
       break;
     }
   }
 
-  if (!found) {
-    res.status(404).send("Book not found");
-  } else {
+  if (found) {
     res.send("Book is edited");
+  } else {
+    res.status(404).send("Book not found");
   }
 });
 

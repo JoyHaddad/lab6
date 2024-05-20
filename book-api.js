@@ -32,11 +32,15 @@ app.post("/book", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile("new-book.html", { root: __dirname + "/public" });
+  res.sendFile("index.html", { root: __dirname + "/public" });
 });
 
-app.get("/edit", (req, res) => {
+app.get("/view", (req, res) => {
   res.sendFile("book-list.html", { root: __dirname + "/public" });
+});
+
+app.get("/add", (req, res) => {
+  res.sendFile("new-book.html", { root: __dirname + "/public" });
 });
 
 //get list of books

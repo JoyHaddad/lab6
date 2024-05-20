@@ -45,27 +45,29 @@ async function deleteBook(isbn) {
 }
 
 async function setEditModal(isbn) {
-  let response = await fetch(`http://localhost:3000/book/${isbn}`);
-  console.log(response.status); // 200
-  console.log(response.statusText); // OK
+  console.log(isbn);
+  try {
+    let response = await fetch(`http://localhost:3000/book/${isbn}`);
+    if (response.status === 200) {
+      let data = await response.text();
+      const book = JSON.parse(data);
 
-  if (response.status === 200) {
-    let data = await response.text();
-    console.log(data);
+      const { title, author, publisher, publish_date, numOfPages } = book;
 
-    const book = JSON.parse(data);
+      document.getElementById("isbn").value = isbn;
+      document.getElementById("title").value = title || "";
+      document.getElementById("author").value = author || "";
+      document.getElementById("publisher").value = publisher || "";
+      document.getElementById("publish_date").value = publish_date || "";
+      document.getElementById("numOfPages").value = numOfPages || "";
 
-    const { title, author, publisher, publish_date, numOfPages } = book;
-
-    document.getElementById("isbn").value = isbn;
-    document.getElementById("title").value = title;
-    document.getElementById("author").value = author;
-    document.getElementById("publisher").value = publisher;
-    document.getElementById("publish_date").value = publish_date;
-    document.getElementById("numOfPages").value = numOfPages;
-
-    document.getElementById(
-      "editForm"
-    ).action = `http://localhost:3000/book/${isbn}`;
+      document.getElementById(
+        "editForm"
+      ).action = `http://localhost:3000/book/${isbn}`;
+    } else {
+      console.error("Failed to fetch book details:", response.status);
+    }
+  } catch (error) {
+    console.error("Error fetching book details:", error);
   }
 }

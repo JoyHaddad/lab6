@@ -8,8 +8,31 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.4/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
   </head>
   <body>
+    <nav class="bg-blue-500 p-3">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="text-lg font-semibold text-white cursor-pointer">
+          Book Database
+        </div>
+        <div>
+          <a
+            href="/add"
+            class="text-white px-4 py-2 hover:bg-blue-400 rounded bg-blue-600 mr-3"
+            >Add Books</a
+          >
+          <a
+            href="/view"
+            class="text-white px-4 py-2 hover:bg-blue-400 rounded bg-blue-600"
+            >View Books</a
+          >
+        </div>
+      </div>
+    </nav>
     <div class="flex flex-col my-10 mx-10 sm:mx-48">
       <hr />
       <h1 class="text-3xl font-bold my-2">Create New Book</h1>
